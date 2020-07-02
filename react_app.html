@@ -16,20 +16,32 @@
     <script type="text/babel">
     let dom = document.querySelector("#root");
 
-    let message = "新メッセージ";
+    let message_true = "メッセージを表示します";
+    let message_false = "メッセージはありません…";
 
-    const msg={
-        fontSize :"40pt",
+    const msg_true={
+        fontSize :"20pt",
         fontWeight :"bold",
         color:"red",
-        border:"2px bold green"
+        border:"2px solid green"
     }
 
-    let flg = true;
+    const msg_false={
+        fontSize :"16pt",
+        fontWeight :"plain",
+        color:"white",
+        backgroundColor:"blue"
+    }
+
+    let flg = false;
 
     let el = (
         <div>
-            {flg && <p style={msg}>{message}</p>}
+            {flg ?
+                <p style={msg_true}>{message_true}</p>
+                :
+                <p style={msg_false}>{message_false}</p>
+            }
         </div>
     );
 
