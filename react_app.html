@@ -17,12 +17,15 @@
     let dom = document.querySelector("#root");
 
     let message = "新メッセージ";    
-    let link = "http://google.com";
+    const msg_s={
+        fontSize :"20pt",
+        color:"red",
+        border:"1px solid blue"
+    }
 
     let el = (
         <div>
-            <p>{message}</p>
-            <p><a href={link}>this is link!</a></p>
+            <p style={msg_s}>{message}</p>
         </div>
     );
 
