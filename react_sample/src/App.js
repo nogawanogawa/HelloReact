@@ -1,54 +1,59 @@
 import React, {Component} from 'react';
-import Rect from "./Rect";
 import './App.css';
 
 class App extends Component {
-  msgstyle1 = {
+  data = [];
+
+  msgstyle = {
     fontSize:"24pt",
     color:"#900",
     margin : "20px 20px",
     padding: "5px",
-    borderBottom: "2px solid #900"
   }
-  msgstyle2 = {
-    fontSize:"20pt",
-    color:"white",
-    backgroundColor: "#900",
-    margin : "20px 0px",
-    padding: "5px",
-    borderBottom: "2px solid #900"
+
+  area = {
+    width : "500px",
+    height : "500px",
+    border: "1px solid blue"
   }
-  btnstyle = {
-    fontSize: "16pt",
-    padding: "0px 10px"
-  }
+  
   constructor(props){
     super(props);
     this.state = {
-      counter : 0,
-      msg : "connt start",
-      flg : true
+      list: this.data
     };
     this.doAction = this.doAction.bind(this)
   }
 
   doAction(e) {
-    this.setState((state) => ({
-      counter: state.counter + 1,
-      msg: "count: " + state.counter,
-      flg: !state.flg 
-    }))
+    let x = e.pageX;
+    let y = e.pageY;
+    this.data.push({x:x ,y:y})
+
+    this.setState({
+      list: this.data
+    })
+  }
+
+  draw(d){
+    let s = {
+      position: "absolute",
+      left: (d.x - 25) + "px",
+      top : (d.y - 25) + "px",
+      width: "50px",
+      height : "50px",
+      backgroundColor: "#66f3"
+    };
+    return <div style={s}></div>;
   }
 
   render(){
     return <div>
       <h1>React</h1>
-      {this.state.flg ? 
-        <p style={this.msgstyle1}>{this.state.msg}</p>
-      :
-        <p style={this.msgstyle2}>{this.state.msg}</p>
-      }
-      <button style={this.btnstyle} onClick={this.doAction}>Click</button>
+      <h2 style={this.msgstyle}>show rect.</h2>
+      <div style={this.area} onClick={this.doAction}>
+        {this.data.map((value) => this.draw(value))}
+      </div>
     </div>;
   }
 }
