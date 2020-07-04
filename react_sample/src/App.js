@@ -2,57 +2,45 @@ import React, {Component} from 'react';
 import Rect from "./Rect"
 import './App.css';
 
+let data = {title: "Title", message: "this is sample message"};
+
+const SampleContext = React.createContext(data);
+
 class App extends Component {
-  input = "";
-
-  msgstyle = {
-    fontSize:"24pt",
-    color:"#900",
-    margin : "20px 0px",
-    padding: "5px",
-  }
-  
-  inputStyle = {
-    fontSize: "12px",
-    padding: "5px"
-  }
-
-  constructor(props){
-    super(props);
-    this.state = {
-      message: "type your name: "
-    };
-    this.doChange = this.doChange.bind(this);
-    this.doSubmit = this.doSubmit.bind(this);
-  }
-
-  doChange(event) {
-    this.input = event.target.value;
-  }
-
-  doSubmit(event){
-    this.setState(
-      {
-        message: "Hello, " + this.input + "!"
-      });
-    event.preventDefault();
-  }
 
   render(){
-    return <div>
-      <h1>React</h1>
-      <h2>{this.state.message}</h2>
-      <form onSubmit={this.doSubmit}>
-        <label>
-          <span style={this.inputStyle}></span>
-          Message: 
-          <input type="text" style={this.inputStyle} onChange={this.doChange} />
-        </label>
-        <input type="submit" style={this.inputStyle} value="Click"></input>
-      </form>
-    </div>;
+    return (
+    <div>
+      <h1>Context</h1>
+      <Title/>
+      <Message/>
+    </div>
+    )
   }
 }
 
+class Title extends Component{
+  static contextType = SampleContext;
+
+  render(){
+    return(
+      <div>
+        <h2>{this.context.title}</h2>
+      </div>
+    )
+  }
+}
+
+class Message extends Component{
+  static contextType = SampleContext;
+
+  render(){
+    return(
+      <div>
+        <p>{this.context.message}</p>
+      </div>
+    )
+  }
+}
 
 export default App;
