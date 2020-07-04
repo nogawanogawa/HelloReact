@@ -17,19 +17,24 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      msg : "Hello Component"
+      counter : 0,
+      msg : "connt start"
     };
-    let timer = setInterval(() => {
-      this.setState((state) => ({
-        msg: state.msg + "!"
-      }))
-    }, 1000);
+    this.doAction = this.doAction.bind(this)
   }
+
+  doAction(e) {
+    this.setState((state) => ({
+      counter: state.counter + 1,
+      msg: "count: " + state.counter 
+    }))
+  }
+
   render(){
     return <div>
       <h1>React</h1>
       <p style={this.msgstyle}>{this.state.msg}</p>
-      <p style={this.msgstyle}>{this.props.msg}</p>
+      <button style={this.btnstyle} onClick={this.doAction}>Click</button>
     </div>;
   }
 }
