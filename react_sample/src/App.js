@@ -7,14 +7,23 @@ let data = {title: "Title", message: "this is sample message"};
 const SampleContext = React.createContext(data);
 
 class App extends Component {
+  newdata = {title:"新しいタイトル", message:"これは新しいメッセージです。"}
 
   render(){
     return (
-    <div>
-      <h1>Context</h1>
-      <Title/>
-      <Message/>
-    </div>
+      <div>
+        <h1>Context</h1>
+        <Title/>
+        <Message/>
+        <SampleContext.Provider value={this.newdata}>
+          <Title/>
+          <Message/>        
+        </SampleContext.Provider>
+        <Title/>
+        <Message/>
+
+      </div>
+
     )
   }
 }
