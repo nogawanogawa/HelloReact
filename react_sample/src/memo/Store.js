@@ -14,7 +14,7 @@ export function memoReducer(state = initdata, action) {
             return addReduce(state, action)
         case "DELETE":
             return deleteReduce(state, action)
-        case "Find":
+        case "FIND":
             return findReduce(state, action)
         default:
             return state;
@@ -43,7 +43,7 @@ function findReduce(state, action){
     let fdata = [];
     state.data.forEach((value) => {
         if(value.message.indexOf(f) >= 0){
-            fdata.push(value)
+            fdata.push(value);
         }
     });
 
@@ -60,12 +60,14 @@ function deleteReduce(state, action) {
     newdata.splice(action.index, 1);
 
     return{
-        data: state.data,
+        data: newdata,
         message: 'delete "' + action.index + '": ',
         mode: "delete",
         fdata: []
     }
 }
+
+// Action Creater
 
 export function addMemo(text){
     return {

@@ -11,10 +11,7 @@ class App extends Component {
   td = {
     width: "250px"
   }
-
-  constructor(props){
-    super(props);
-  }
+  
   render(){
     return (
       <div>
