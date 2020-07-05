@@ -1,26 +1,23 @@
 import React, {Component} from 'react';
-import Rect from "./Rect"
+import {connect} from "react-redux"
 import './App.css';
 
-let data = {title: "Title", message: "this is sample message"};
-
-const SampleContext = React.createContext(data);
+function mappingState(state){
+  return state;
+}
 
 class App extends Component {
-  newdata = {title:"新しいタイトル", message:"これは新しいメッセージです。"}
+
+  constructor(props){
+    super(props);
+  }
 
   render(){
     return (
       <div>
-        <h1>Context</h1>
-        <Title/>
-        <Message/>
-        <SampleContext.Provider value={this.newdata}>
-          <Title/>
-          <Message/>        
-        </SampleContext.Provider>
-        <Title/>
-        <Message/>
+        <h1>Redux</h1>
+        <Message/>        
+        <Button/> 
 
       </div>
 
@@ -28,28 +25,53 @@ class App extends Component {
   }
 }
 
-class Title extends Component{
-  static contextType = SampleContext;
-
-  render(){
-    return(
-      <div>
-        <h2>{this.context.title}</h2>
-      </div>
-    )
-  }
-}
+App = connect()(App);
 
 class Message extends Component{
-  static contextType = SampleContext;
+  style ={
+    fontSize: "20pt",
+    padding: "20px 5px"
+  }
 
   render(){
     return(
-      <div>
-        <p>{this.context.message}</p>
-      </div>
+      <p style={this.style}>
+        {this.props.message}: {this.props.counter}
+      </p>
     )
   }
 }
+
+Message = connect(mappingState)(Message)
+
+class Button extends Component{
+  style = {
+    fontSize: "16pt",
+    padding: "5px 10px"
+  }
+
+  constructor(props){
+    super(props);
+    this.doAction = this. doAction.bind(this);
+  }
+
+  doAction(e){
+    if (e.shiftKey){
+      this.props.dispatch({type: "DECREMENT"})
+    } else {
+      this.props.dispatch({type: "INCREMENT"})
+    }
+  }
+
+  render(){
+    return (
+      <button style={this.style} onClick={this.doAction}>
+        click
+      </button>
+    )
+  }
+}
+
+Button = connect()(Button)
 
 export default App;
